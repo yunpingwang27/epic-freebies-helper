@@ -46,7 +46,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run camoufox fetch
 
+      # Firefox 只是 Camoufox 的兜底；下载/依赖偶发失败不应拖垮整个任务。
       - name: Install Playwright Firefox fallback
+        continue-on-error: true
         run: uv run playwright install firefox
 
       - name: Run Epic Awesome Gamer
